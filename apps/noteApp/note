@@ -1,0 +1,24 @@
+emmet - suggest auto complete html code
+JSX support string, number, array doesn't support objects ignore booleans, null, undefied
+
+
+{
+  [99, 98, 97, 'Mike Smith', null, undefined, true]
+}
+
+=== {99}{98}{97}{Mike Smith}
+
+{
+  [<p key="1">a</p>, <p key="2">b</p>, <p key="3">c</p>]
+  // if not define key JSX can not render to website 
+}
+
+
+const numbers = [55, 101, 1000];
+{
+  numbers.map((number) => {
+  return <p key={number}>Number: {number}</p>
+  })
+}
+
+normalize.css make all chrome firefox ie ... the same when style css files

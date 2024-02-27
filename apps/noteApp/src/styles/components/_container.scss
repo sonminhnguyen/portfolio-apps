@@ -1,0 +1,6 @@
+.container {
+  max-width: 60rem; //going to distribute the extra space on both side if not it will take 100% available -> can not centerlize
+  margin: 0 auto;
+  padding: 0 $m-size;
+}
+
