@@ -14,7 +14,7 @@ const stockApp = require("./apps/stockApp");
 
 var app = express();
 
-app.set('view engine', 'hbs');
+// app.set('view engine', 'hbs');
 app.use(cors());
 app.use(logger('dev'));
 // app.use(express.json());
@@ -31,8 +31,8 @@ app.use("/stockApp", stockApp);
 
 app.get('/', function(req, res, next) {
   
-  // res.send("resume page!");
-  res.render('index', { title: 'Express' });
+  res.send("resume page!");
+  // res.render('index', { title: 'Express' });
 });
 
 // catch 404 and forward to error handler

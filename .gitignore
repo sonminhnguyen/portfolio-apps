@@ -1,6 +1,16 @@
 *node_modules
 node_modules
 
+/apps/*/.env
+/apps/*/index.js
+
+/apps/*/.env.development
+/apps/*/.env.test
+/apps/*/client/.env
+/apps/*/client/.env.development
+/apps/*/client/.env.test
+/apps/*/client/node_modules
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
