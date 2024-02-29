@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 
-const weatherApp = require("./apps/weatherApp");
+// const weatherApp = require("./apps/weatherApp");
 const chatApp = require("./apps/chatApp");
 const noteApp = require("./apps/noteApp");
 const expensifyApp = require("./apps/expensifyApp");
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/weatherApp", weatherApp);
+// app.use("/weatherApp", weatherApp);
 app.use("/chatApp", chatApp);
 app.use("/noteApp", noteApp);
 app.use("/expensifyApp", expensifyApp);
