@@ -6,10 +6,10 @@ var logger = require('morgan');
 var cors = require("cors");
 
 // const weatherApp = require("./apps/weatherApp");
-// const chatApp = require("./apps/chatApp");
-// const noteApp = require("./apps/noteApp");
-// const expensifyApp = require("./apps/expensifyApp");
-// const stockApp = require("./apps/stockApp");
+const chatApp = require("./apps/chatApp");
+const noteApp = require("./apps/noteApp");
+const expensifyApp = require("./apps/expensifyApp");
+const stockApp = require("./apps/stockApp");
 
 
 var app = express();
@@ -23,10 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use("/weatherApp", weatherApp);
-// app.use("/chatApp", chatApp);
-// app.use("/noteApp", noteApp);
-// app.use("/expensifyApp", expensifyApp);
-// app.use("/stockApp", stockApp);
+app.use("/chatApp", chatApp);
+app.use("/noteApp", noteApp);
+app.use("/expensifyApp", expensifyApp);
+app.use("/stockApp", stockApp);
 
 
 app.get('/', function(req, res, next) {
