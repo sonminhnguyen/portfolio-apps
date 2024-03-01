@@ -2,7 +2,6 @@
 node_modules
 
 /apps/*/.env
-/apps/*/index.js
 
 /apps/*/.env.development
 /apps/*/.env.test
