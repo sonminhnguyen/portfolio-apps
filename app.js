@@ -28,10 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use("/weatherApp", weatherApp);
-// app.use("/chatApp", chatApp);
+app.use("/chatApp", chatApp);
 app.use("/noteApp", noteApp);
-// app.use("/expensifyApp", expensifyApp);
-// app.use("/stockApp", stockApp);
+app.use("/expensifyApp", expensifyApp);
+app.use("/stockApp", stockApp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
