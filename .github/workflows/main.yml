@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  test-and-deploy:
+  deploy-AWS:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Latest Repo
