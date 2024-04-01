@@ -85,9 +85,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-          { from: 'public', to: 'public' }
+          { from: 'public', to: './' }
       ]
-  })
+    })
   ]
 };
 // const HtmlWebpackPlugin = require("html-webpack-plugin");

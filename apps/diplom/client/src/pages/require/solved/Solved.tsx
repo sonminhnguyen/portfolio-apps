@@ -6,8 +6,12 @@ import SearchIcon from '@rsuite/icons/Search';
 // const data = mockUsers(20);
 // console.log(data);
 
-import { getSolvedRequires, revertRequires } from '@/data/database';
+import { 
+  // getSolvedRequires, 
+  revertRequires 
+} from '@/data/database';
 import Copyright from '@/components/Copyright';
+import data from './data';
 
 const { Column, HeaderCell, Cell } = Table;
 const { getHeight } = DOMHelper;
@@ -80,7 +84,8 @@ const Solved = () => {
   };
 
   useEffect(() => {
-    getSolvedRequires().then(data => setDatabase(data));
+    setDatabase(data);
+    // getSolvedRequires().then(data => setDatabase(data));
   }, []);
   return (
     <>

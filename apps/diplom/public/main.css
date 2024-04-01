@@ -16357,6 +16357,9 @@ body {
 .bg-gradient-blue {
   background: linear-gradient(87deg, #11cdef 0, #1171ef 100%);
 }
+a:hover {
+  cursor: pointer;
+}
 
 
 /*# sourceMappingURL=main.css.map*/

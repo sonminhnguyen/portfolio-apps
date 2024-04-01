@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputGroup, Table, DOMHelper, Stack, SelectPicker } from 'rsuite';
 import SearchIcon from '@rsuite/icons/Search';
 
-import { getInQueueRequires, updateRequires } from '@/data/database';
+import { updateRequires } from '@/data/database';
 import Copyright from '@/components/Copyright';
+import data from './data';
 
 const { Column, HeaderCell, Cell } = Table;
 const { getHeight } = DOMHelper;
@@ -75,7 +76,8 @@ const InQueue = () => {
   };
 
   useEffect(() => {
-    getInQueueRequires().then(data => setDatabase(data));
+    setDatabase(data);
+    // getInQueueRequires().then(data => setDatabase(data));
   }, []);
   return (
     <>

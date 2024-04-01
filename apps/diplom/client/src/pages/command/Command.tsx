@@ -3,8 +3,9 @@ import { Table, ButtonToolbar, IconButton } from 'rsuite';
 import { TestCell, LinkCell } from './Cells';
 import PlusIcon from '@rsuite/icons/Plus';
 import { CommandContext } from './context';
-import { getCommands } from '../../data/database';
+// import { getCommands } from '../../data/database';
 import Copyright from '@/components/Copyright';
+import data from './data';
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -34,7 +35,8 @@ const Command = () => {
   };
 
   useEffect(() => {
-    getCommands().then(data => setDatabase(data));
+    setDatabase(data);
+    // getCommands().then(data => setDatabase(data));
   }, []);
   if (database.length !== 0) {
     return (

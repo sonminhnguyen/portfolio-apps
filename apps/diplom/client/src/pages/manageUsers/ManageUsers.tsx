@@ -8,7 +8,7 @@ import { NameCell, ImageCell, CheckCell, ActionCell } from './Cells';
 import { getUsers } from '../../data/database';
 import { ManageUsersContext } from './context';
 import Copyright from '@/components/Copyright';
-
+import data from './data';
 // import { mockUsers } from '@/data/mock';
 // const data = mockUsers(20);
 
@@ -57,7 +57,6 @@ const ManageUsers = () => {
     setSortType(sortType);
   };
 
-  console.log(database);
   const filteredData = () => {
     if (database.length !== 0) {
       const filtered = database.filter((item: any) => {
@@ -95,7 +94,8 @@ const ManageUsers = () => {
   };
 
   useEffect(() => {
-    getUsers().then((data: any) => setDatabase(data));
+    setDatabase(data);
+    // getUsers().then((data: any) => setDatabase(data));
   }, []);
   if (database.length !== 0) {
     return (

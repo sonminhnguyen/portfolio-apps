@@ -12,93 +12,136 @@ const todayStr = format(today, 'yyyy-MM-dd');
 export const INITIAL_EVENTS: EventInput[] = [
   {
     id: uniqueId(),
-    title: '🎊 Project kick-off meeting',
+    title: '🎊 Стартовая встреча проекта',
     allDay: true,
-    start: format(firstDay, 'yyyy-MM-dd')
+    start: format(firstDay, 'yyyy-MM-dd'),
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '🎉 Product launch',
-    start: format(addDays(firstDay, 2), 'yyyy-MM-dd') + 'T10:00:00'
-  },
-
-  {
-    id: uniqueId(),
-    title: 'Product training.',
-    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T10:00:00'
-  },
-  {
-    id: uniqueId(),
-    title: 'Product Demo',
-    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T11:00:00'
-  },
-  {
-    id: uniqueId(),
-    title: 'Product Exam',
-    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T12:00:00'
+    title: '🎉 Запуск продукта',
+    start: format(addDays(firstDay, 2), 'yyyy-MM-dd') + 'T10:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
 
   {
     id: uniqueId(),
-    title: 'Monitoring and alerting service design communication',
-    start: format(addDays(firstDay, 5), 'yyyy-MM-dd') + 'T10:00:00'
+    title: 'Обучение продукту.',
+    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T10:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: 'Design system brainstorming',
-    start: format(addDays(firstDay, 5), 'yyyy-MM-dd') + 'T11:00:00'
+    title: 'Демонстрация продукта',
+    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T11:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
+  },
+  {
+    id: uniqueId(),
+    title: 'Экзамен продукта',
+    start: format(addDays(firstDay, 3), 'yyyy-MM-dd') + 'T12:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
 
   {
     id: uniqueId(),
-    title: 'Test Case Review',
-    start: format(addDays(firstDay, 15), 'yyyy-MM-dd') + 'T14:00:00'
+    title: 'Мониторинг и оповещение о дизайне сервисов',
+    start: format(addDays(firstDay, 5), 'yyyy-MM-dd') + 'T10:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: 'Development Design Review',
-    start: format(addDays(firstDay, 15), 'yyyy-MM-dd') + 'T16:00:00'
+    title: 'Мозговой штурм дизайн-системы',
+    start: format(addDays(firstDay, 5), 'yyyy-MM-dd') + 'T11:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
 
   {
     id: uniqueId(),
-    title: '💎 Product meeting',
+    title: 'Обзор тестового примера',
+    start: format(addDays(firstDay, 15), 'yyyy-MM-dd') + 'T14:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
+  },
+  {
+    id: uniqueId(),
+    title: 'Обзор разработки разработки',
+    start: format(addDays(firstDay, 15), 'yyyy-MM-dd') + 'T16:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
+  },
+
+  {
+    id: uniqueId(),
+    title: '💎 Встреча продукта',
     start: todayStr + 'T09:00:00',
-    end: todayStr + 'T10:30:00'
+    end: todayStr + 'T10:30:00',
+    message: null,
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '👨‍💻 Coding ',
+    title: '👨‍💻 Кодирование ',
     start: todayStr + 'T10:00:00',
-    end: todayStr + 'T11:30:00'
+    end: todayStr + 'T11:30:00',
+    message: null,
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '📖 Leadership training',
+    title: '📖 Подготовки руководящих кадров',
     start: todayStr + 'T12:00:00',
-    end: todayStr + 'T14:00:00'
+    end: todayStr + 'T14:00:00',
+    message: null,
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '☕️ Afternoon tea time',
+    title: '☕️ Послеобеденное чаепитие',
     start: todayStr + 'T14:00:00',
-    end: todayStr + 'T16:00:00'
+    end: todayStr + 'T16:00:00',
+    message: null,
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: 'Interview engineers.',
+    title: 'Интервью инженеров.',
     start: todayStr + 'T16:00:00',
-    end: todayStr + 'T18:00:00'
+    end: todayStr + 'T18:00:00',
+    message: null,
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '🎉 Product release',
+    title: '🎉 Выпуск продукта',
     allDay: true,
-    start: format(lastDay, 'yyyy-MM-dd') + 'T14:00:00'
+    start: format(lastDay, 'yyyy-MM-dd') + 'T14:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   },
   {
     id: uniqueId(),
-    title: '🔬 Product acceptance',
-    start: format(lastDay, 'yyyy-MM-dd') + 'T16:00:00'
+    title: '🔬 Принятие продукта',
+    start: format(lastDay, 'yyyy-MM-dd') + 'T16:00:00',
+    message: null,
+    end: todayStr + 'T11:30:00',
+    remindToGroup: null
   }
 ];

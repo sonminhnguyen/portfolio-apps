@@ -11,7 +11,7 @@ const fixedScene = require("./scene/fixedScene");
 const { createChangeableScene } = require("./scene/ChangeableScene");
 
 const bot = new VkBot({
-  token: process.env.TOKEN,
+  token: process.env.TOKEN || "some token here",
 });
 
 // const session = new Session();

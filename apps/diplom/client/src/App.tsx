@@ -35,17 +35,13 @@ const App = () => {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           {/* private Routes */}
-          <Route path="/" element={<Frame navs={appNavs} />}>
-            <Route element={<RequireAuth AllowedRoles={['admin']} />}>
-              <Route path="/inqueue" element={<RequirePage />} />
-              <Route path="/solved" element={<SolvedPage />} />
-              <Route path="/command" element={<CommandPage />} />
-              <Route path="/manageUsers" element={<ManageUsers />} />
-            </Route>
-            <Route element={<RequireAuth AllowedRoles={['admin', 'teacher']} />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/calendar" element={<CalendarPage />} />
-            </Route>
+          <Route path="/" element={<Frame navs={appNavsAdmin} />}>
+            <Route path="/inqueue" element={<RequirePage />} />
+            <Route path="/solved" element={<SolvedPage />} />
+            <Route path="/command" element={<CommandPage />} />
+            <Route path="/manageUsers" element={<ManageUsers />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Route>
           {/* catch all  */}
           <Route path="*" element={<Error404Page />} />
@@ -56,3 +52,28 @@ const App = () => {
 };
 
 export default App;
+{
+  /* <Routes>
+public Routes 
+<Route path="/" element={<IndexPage />} />
+<Route path="/error-404" element={<Error404Page />} />
+<Route path="/error-500" element={<Error500Page />} />
+<Route path="/sign-in" element={<SignInPage />} />
+<Route path="/sign-up" element={<SignUpPage />} />
+private Routes
+<Route path="/" element={<Frame navs={appNavs} />}>
+  <Route element={<RequireAuth AllowedRoles={['admin']} />}>
+    <Route path="/inqueue" element={<RequirePage />} />
+    <Route path="/solved" element={<SolvedPage />} />
+    <Route path="/command" element={<CommandPage />} />
+    <Route path="/manageUsers" element={<ManageUsers />} />
+  </Route>
+  <Route element={<RequireAuth AllowedRoles={['admin', 'teacher']} />}>
+    <Route path="/dashboard" element={<DashboardPage />} />
+    <Route path="/calendar" element={<CalendarPage />} />
+  </Route>
+</Route>
+catch all 
+<Route path="*" element={<Error404Page />} />
+</Routes> */
+}

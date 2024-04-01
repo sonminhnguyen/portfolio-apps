@@ -24,7 +24,7 @@ const SignUp = () => {
   const from = location.state?.from?.pathname || "/dashboard";
 
   const onSubmit = async () => {
-    console.log('submitted!');
+    // console.log('submitted!');
     try {
       const response = await axios.post('/users/login', formValue);
       if (response.status === 200) {
@@ -46,9 +46,9 @@ const SignUp = () => {
         height: '100vh'
       }}
     >
-      <Brand style={{ marginBottom: 10 }} />
+      <Brand style={{ marginBottom: 10, userSelect: "none" }} />
 
-      <Panel bordered style={{ background: '#fff', width: 400 }} header={<h3>Войти</h3>}>
+      <Panel bordered style={{ background: '#fff', width: 400, userSelect: "none" }} header={<h3>Войти</h3>}>
         <p style={{ marginBottom: 10 }}>
           <span className="text-muted">Новенький тут? </span>{' '}
           <Link to="/sign-up"> Завести аккаунт</Link>
@@ -68,7 +68,7 @@ const SignUp = () => {
 
           <Form.Group>
             <Stack spacing={6} divider={<Divider vertical />}>
-              <Button appearance="primary" onClick={onSubmit}>
+              <Button appearance="primary" onClick={()=> navigate("/dashboard")}>
                 Войти
               </Button>
               <Stack spacing={6}>

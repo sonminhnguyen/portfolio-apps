@@ -9,7 +9,8 @@ import { getStudents } from '../../data/database';
 import { DashboardContext } from './context';
 import Copyright from '@/components/Copyright';
 import { AuthContext } from '@/context/AuthProvider';
-// import { mockUsers } from '@/data/mock';
+import data from './data';
+// import { data } from '@/data/mock';
 // const data = mockUsers(20);
 
 const { Column, HeaderCell, Cell } = Table;
@@ -112,7 +113,8 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    getStudents().then((data: any) => setDatabase(data));
+    setDatabase(data);
+    // getStudents().then((data: any) => setDatabase(data));
   }, []);
   if (database.length !== 0) {
     return (

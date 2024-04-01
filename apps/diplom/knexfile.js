@@ -6,10 +6,13 @@ const pg = require('pg');
 
 const config = {
   development: {
-    client: 'pg',
+    client: 'mysql',
     connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      host: '127.0.0.1',
+      port: 3306,
+      user: 'root',
+      password: 'root',
+      database: 'vkchat',
     },
     migrations: {
       directory: './knex/migrations',

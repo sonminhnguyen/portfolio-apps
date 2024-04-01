@@ -8,6 +8,7 @@ var cors = require("cors");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // const weatherApp = require("./apps/weatherApp");
+const diplom = require("./apps/diplom");
 const chatApp = require("./apps/chatApp");
 const noteApp = require("./apps/noteApp");
 const expensifyApp = require("./apps/expensifyApp");
@@ -18,7 +19,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors());
+app.use(cors({origin: '*'}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,10 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use("/weatherApp", weatherApp);
-app.use("/chatApp", chatApp);
-app.use("/noteApp", noteApp);
-app.use("/expensifyApp", expensifyApp);
-app.use("/stockApp", stockApp);
+// app.use("/apps/diplom", diplom);
+// app.use("/apps/chatApp", chatApp);
+// app.use("/apps/noteApp", noteApp);
+// app.use("/apps/expensifyApp", expensifyApp);
+// app.use("/apps/stockApp", stockApp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

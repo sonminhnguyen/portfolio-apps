@@ -10,6 +10,7 @@ import EventModal from './EventModal';
 // import ruLocale from '@fullcalendar/core/locales/ru';
 // import { updateEvents } from '../../data/database';
 
+import { INITIAL_EVENTS } from './event-utils';
 
 import { getEvents } from '../../data/database';
 // import { Button } from 'rsuite';
@@ -53,9 +54,10 @@ const Calendar = () => {
   };
 
   useEffect(() => {
-    getEvents().then(data => setDatabase(data));
+    setDatabase(INITIAL_EVENTS);
+    // getEvents().then(data => setDatabase(data));
   }, []);
-
+  console.log(database)
   if (database.length !== 0) {
     return (
       <PageContent className="calendar-app">
@@ -84,7 +86,10 @@ const Calendar = () => {
           setDatabase={setDatabase}
           selectedDate={selectedDate}
           open={editable}
-          onClose={() => {setEditable(false); setDeletable(false);}}
+          onClose={() => {
+            setEditable(false);
+            setDeletable(false);
+          }}
           deletable={deletable}
         />
       </PageContent>

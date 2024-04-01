@@ -50,7 +50,7 @@ const Header = () => {
         <Dropdown.Menu onSelect={handleSelect}>
           <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
             <p style={{ textAlign: 'left' }}>Вход как</p>
-            <strong>{auth.user.username}</strong>
+            <strong>{auth.user?.username}</strong>
           </Dropdown.Item>
           <Dropdown.Item divider />
           <Dropdown.Item eventKey={1}>Профиль и аккунт</Dropdown.Item>
