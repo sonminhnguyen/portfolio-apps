@@ -6,7 +6,7 @@ const publicPath = path.join(__dirname, '../apps/diplom/public');
 console.log(publicPath)
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send("hello")
+  res.send("hello from express")
   // res.render('index', {"title": "hello"});
   // res.sendFile(path.join(publicPath, 'index.html'));
 });

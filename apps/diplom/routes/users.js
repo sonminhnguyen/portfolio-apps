@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const passport = require("../middleware/passport");
-const knex = require("../database");
+// const knex = require("../database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
