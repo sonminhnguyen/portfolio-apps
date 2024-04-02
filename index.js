@@ -9,10 +9,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // const weatherApp = require("./apps/weatherApp");
 // const diplom = require("./apps/diplom");
-// const chatApp = require("./apps/chatApp");
+const chatApp = require("./apps/chatApp");
 const noteApp = require("./apps/noteApp");
-// const expensifyApp = require("./apps/expensifyApp");
-// const stockApp = require("./apps/stockApp");
+const expensifyApp = require("./apps/expensifyApp");
+const stockApp = require("./apps/stockApp");
 
 var app = express();
 
@@ -30,10 +30,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use("/weatherApp", weatherApp);
 // app.use("/apps/diplom", diplom);
-// app.use("/apps/chatApp", chatApp);
-app.use("/api/noteApp", noteApp);
-// app.use("/apps/expensifyApp", expensifyApp);
-// app.use("/apps/stockApp", stockApp);
+app.use("/apps/chatApp", chatApp);
+app.use("/apps/noteApp", noteApp);
+app.use("/apps/expensifyApp", expensifyApp);
+app.use("/apps/stockApp", stockApp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
