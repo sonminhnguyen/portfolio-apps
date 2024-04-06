@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import { getSymbolListVN } from "./dataVN";
+import { getSymbolListVN } from "./utils/api";
 
 const SearchBar = ({ setSymbol }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [options, setOptions] = useState([]);
 
   const handleSearch = async (searchTerm) => {
-    const options = await getSymbolListVN(
-      searchTerm,
-      process.env.REACT_APP_FIREANT_KEY
-    );
-    setOptions(options);
+    try {
+      const options = await getSymbolListVN(
+        searchTerm,
+        process.env.REACT_APP_FIREANT_KEY
+      );
+      setOptions(options);
+    } catch (e) {
+      console.log(e);
+    }
   };
-  const handleSelect = (e) => e.length !== 0 && setSymbol(e[0].key);
+  const handleSelect = (e) => {
+    e.length !== 0 && setSymbol(e[0]?.key)
+  };
 
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.

@@ -31,7 +31,9 @@ const VmiUS = () => {
             }
         }
     }, [symbol])
-    
+    console.log(incomeStatement)
+    console.log(balanceSheet)
+    console.log(cashFlow)
     return (
         <>
             <Suspense fallback={<h1>Still Loading…</h1>}>

@@ -18,20 +18,20 @@ const BasicInfo = () => {
             && Object.keys(ratio).length !== 0
         ) {
             const basicInfo = {
-                EPS: ratio.quotes.epsTrailingTwelveMonths,
-                PB: ratio.quotes.priceToBook,
-                PE: ratio.quotes.trailingPE,
-                epsGrowth5Y: ratio.finnhub.metric.epsGrowth5Y,
-                PEG: ratio.defaultKeyStatistics.pegRatio,
-                PSG: ratio.quotes.priceToBook / ratio.finnhub.metric.revenueGrowth5Y,
-                ROE5Y: ratio.financialData.returnOnEquity,
-                currentRatio: ratio.financialData.currentRatio,
-                totalDebt: ratio.financialData.totalDebt / 1000000,
-                ebitda: ratio.financialData.ebitda / 1000000,
-                debtEbitda: ratio.financialData.totalDebt / ratio.financialData.ebitda,
-                netInterestIncome: incomeStatement.interestExpense[0],
-                operatingCashflow: cashFlow.totalCashFromOperatingActivities[0],
-                netInterestCFO: Math.abs(incomeStatement.interestExpense[0] / cashFlow.totalCashFromOperatingActivities[0] * 100),
+                EPS: ratio.quotes.epsTrailingTwelveMonths || 0,
+                PB: ratio.quotes.priceToBook || 0,
+                PE: ratio.quotes.trailingPE || 0,
+                epsGrowth5Y: ratio.finnhub.metric.epsGrowth5Y || 0,
+                PEG: ratio.defaultKeyStatistics.pegRatio || 0,
+                PSG: (ratio.quotes.priceToBook / ratio.finnhub.metric.revenueGrowth5Y) || 0,
+                ROE5Y: ratio.financialData.returnOnEquity || 0,
+                currentRatio: ratio.financialData.currentRatio || 0,
+                totalDebt: (ratio.financialData.totalDebt / 1000000) || 0,
+                ebitda: (ratio.financialData.ebitda / 1000000) || 0,
+                debtEbitda: (ratio.financialData.totalDebt / ratio.financialData.ebitda) || 0,
+                netInterestIncome: incomeStatement.interestExpense[0] || 0,
+                operatingCashflow: cashFlow.totalCashFromOperatingActivities[0] || 0,
+                netInterestCFO: Math.abs(incomeStatement.interestExpense[0] / cashFlow.totalCashFromOperatingActivities[0] * 100) || 0,
             }
             setBasicInfo(basicInfo)
         }

@@ -18,8 +18,8 @@ module.exports = (env) => {
   return {
     entry: ["babel-polyfill", "./src/app.js"],
     output: {
-      path: path.join(__dirname, "public/dist"),
-      publicPath: path.join(__dirname, "public/dist"),
+      path: path.join(__dirname, "public"),
+      publicPath: path.join(__dirname, "public"),
       filename: "bundle.js",
     },
     module: {
@@ -81,7 +81,7 @@ module.exports = (env) => {
     devServer: {
       contentBase: path.join(__dirname, "public"),
       historyApiFallback: true,
-      publicPath: "/dist/",
+      // publicPath: "/dist/",
     },
   };
 };

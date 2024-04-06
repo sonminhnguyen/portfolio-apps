@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { getSymbolList } from "./dataUS";
@@ -6,25 +6,31 @@ import { getSymbolList } from "./dataUS";
 const SearchBar = ({ setSymbol }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
+  const [render, setRender] = useState([]);
 
   const handleSearch = async (searchTerm) => {
-    const options = await getSymbolList(searchTerm.toUpperCase());
+    setIsLoading(true);
     try {
-      setOptions(options);
+      getSymbolList(searchTerm.toUpperCase()).then((data) => {
+        setOptions(data)
+        setIsLoading(false);
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleSelect = (e) => e.length !== 0 && setSymbol(e[0].symbol);
+  const handleSelect = (e) => options.length !== 0 && setSymbol(e[0]?.symbol);
 
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
   const filterBy = () => true;
-
+  useEffect(() => {
+    setRender(options);
+  }, [options]);
   return (
     <AsyncTypeahead
-      delay={500}
+      delay={1000}
       filterBy={filterBy}
       id="search-symbol-US"
       isLoading={isLoading}
@@ -32,7 +38,7 @@ const SearchBar = ({ setSymbol }) => {
       labelKey="symbol"
       minLength={1}
       onSearch={(searchTerm) => handleSearch(searchTerm)}
-      options={options}
+      options={render}
       placeholder="Enter a symbol"
       renderMenuItemChildren={(option, props) => (
         <ListGroup horizontal="sm">

@@ -4,15 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-// import { Router } from 'react-router-dom';
-import { HashRouter } from "react-router-dom";
-// import { createBrowserHistory } from 'history';
-
-// const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename="/stockApp">
+    <BrowserRouter basename="/apps/stockApp">
       {/* <HashRouter basename="/" hashType="noslash"> */}
         <App />
       {/* </HashRouter> */}

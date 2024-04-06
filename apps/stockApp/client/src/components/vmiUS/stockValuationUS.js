@@ -58,18 +58,18 @@ const StockValuation = () => {
 			&& Object.keys(balanceSheet).length !== 0
 			&& Object.keys(cashFlow).length !== 0
 			&& Object.keys(ratio).length !== 0
-		) {
-			const netIncome = cashFlow.netIncome[0]
-			const operatingCashflow = cashFlow.totalCashFromOperatingActivities[0]
-			const capitalExpenditure = cashFlow.capitalExpenditures[0]
-			const freeCashflow = operatingCashflow + capitalExpenditure
-			const totalDebt = ratio.financialData.totalDebt / 1000000
-			const cashAndShortTermInvestments = balanceSheet.cash[0] + balanceSheet.shortTermInvestments[0]
-			const epsGrowth5Y = ratio.finnhub.metric.epsGrowth5Y
-			const epsGrowth10Y = ratio.finnhub.metric.epsGrowth5Y / 2
-			const discountRate = calculateDiscountRate(ratio.defaultKeyStatistics.beta)
-			const sharesOutstanding = ratio.defaultKeyStatistics.sharesOutstanding
-			const price = ratio.financialData.currentPrice
+		) {;
+			const netIncome = cashFlow.netIncome[0] || 0;
+			const operatingCashflow = cashFlow.totalCashFromOperatingActivities[0] || 0;
+			const capitalExpenditure = cashFlow.capitalExpenditures[0] || 0;
+			const freeCashflow = operatingCashflow + capitalExpenditure || 0;
+			const totalDebt = (ratio.financialData.totalDebt / 1000000) || 0;
+			const cashAndShortTermInvestments = (balanceSheet.cash[0] + balanceSheet.shortTermInvestments[0]) || 0;
+			const epsGrowth5Y = ratio.finnhub.metric.epsGrowth5Y || 0;
+			const epsGrowth10Y = (ratio.finnhub.metric.epsGrowth5Y / 2) || 0;
+			const discountRate = calculateDiscountRate(ratio.defaultKeyStatistics.beta) || 0;
+			const sharesOutstanding = ratio.defaultKeyStatistics.sharesOutstanding || 0;
+			const price = ratio.financialData.currentPrice || 0;
 
 			let stockV = {
 				netIncome,

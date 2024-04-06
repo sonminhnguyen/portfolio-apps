@@ -16,13 +16,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(publicPath));
+app.use(express.static(path.join(__dirname, './public')));
 
 app.use('/api', apiRouter);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(publicPath, 'index.html'));
+// });
 app.get('/*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });

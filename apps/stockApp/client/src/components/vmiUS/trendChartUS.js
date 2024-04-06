@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext, useState, useEffect } from 'react'
 //dont delete import chart
 import { Chart as ChartJS } from 'chart.js/auto'

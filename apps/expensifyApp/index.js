@@ -4,11 +4,11 @@ const express = require('express');
 const app = express();
 
 const port = process.env.PORT || 3000;
-const publicPath = path.join(__dirname, './public');
+const publicPath = path.join(__dirname, 'public');
 
-app.use(express.static(publicPath));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
+app.get('/apps/expensifyApp', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 

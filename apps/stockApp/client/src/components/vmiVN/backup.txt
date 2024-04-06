@@ -1,0 +1,95 @@
+// basicInfoVN.js
+useEffect(() => {
+      if (
+        Object.keys(incomeStatement).length !== 0 &&
+        Object.keys(balanceSheet).length !== 0 &&
+        Object.keys(cashFlow).length !== 0 &&
+        Object.keys(ratio).length !== 0 &&
+        Object.keys(ratioCafeF).length !== 0
+      ) {
+        const epsGrowth5Y = growthRate5Y(ratioCafeF.EPS);
+        const epsGrowth10Y = growthRate10Y(ratioCafeF.EPS);
+        const roae5Y = average5Y(ratioCafeF.ROE); //This is ROE
+        const revenue = incomeStatement.find((element) => element?.id === 1)
+          .values.value;
+        const revenueGrowth5Y = growthRate5Y(revenue.slice().reverse());
+        const shortTermDebt = balanceSheet.find((element) => {
+          return element.id === 3010101
+            ? element.values.value.slice(-1)[0]
+            : null;
+        });
+        const longTermDebt = balanceSheet.find((element) => {
+          return element.id === 3010206
+            ? element.values.value.slice(-1)[0]
+            : null;
+        });
+        const netIncome = cashFlow.find((element) => {
+          return element.id === 101 ? element.values.value.slice(-1)[0] : null;
+        });
+        const amortization = cashFlow.find((element) => {
+          return element.id === 10201 ? element.values.value.slice(-1)[0] : null;
+        });
+        const interestOnDeposits = cashFlow.find((element) => {
+          return element.id === 10208 ? element.values.value.slice(-1)[0] : null;
+        });
+        const interestIncome = cashFlow.find((element) => {
+          return element.id === 10209 ? element.values.value.slice(-1)[0] : null;
+        });
+        const interestExpense = cashFlow.find((element) => {
+          return element.id === 10210 ? element.values.value.slice(-1)[0] : null;
+        });
+        const operatingCashflow = cashFlow.find((element) => {
+          return element.id === 104 ? element.values.value.slice(-1)[0] : null;
+        });
+        const peg =
+          ratio.find((element) => element.symbol === "P/E").value / epsGrowth5Y;
+        const psg =
+          ratio.find((element) => element.symbol === "P/S").value /
+          revenueGrowth5Y;
+        const totalDebt = shortTermDebt + longTermDebt;
+        const ebitda = netIncome + amortization + interestExpense;
+        const netInterestIncome =
+          interestOnDeposits + interestIncome - interestExpense;
+        const debtEbitda = totalDebt / ebitda;
+        const debtServicingRatio =
+          netInterestIncome > 0
+            ? 0
+            : Math.abs((netInterestIncome / operatingCashflow) * 100);
+        const basicInfo = {
+          epsNormalizedAnnual: ratio.find((element) => element.symbol === "EPS")
+            .value,
+          epsIndustry: ratio.find((element) => element.symbol === "EPS")
+            .industryValue,
+          pbAnnual: ratio.find((element) => element.symbol === "P/B").value,
+          pbIndustry: ratio.find((element) => element.symbol === "P/B")
+            .industryValue,
+          peNormalizedAnnual: ratio.find((element) => element.symbol === "P/E")
+            .value,
+          peIndustry: ratio.find((element) => element.symbol === "P/E")
+            .industryValue,
+          psAnnual: ratio.find((element) => element.symbol === "P/S").value,
+          psIndustry: ratio.find((element) => element.symbol === "P/S")
+            .industryValue,
+          epsGrowth5Y,
+          epsGrowth10Y,
+          peg,
+          psg,
+          roae5Y,
+          roeIndustry: ratio.find((element) => element.symbol === "ROE")
+            .industryValue,
+          currentRatioAnnual: ratio.find(
+            (element) => element.symbol === "TT Hiện hành"
+          ).value,
+          currentRatioAnnualIndustry: ratio.find(
+            (element) => element.symbol === "TT Hiện hành"
+          ).industryValue,
+          totalDebt,
+          ebitda,
+          debtEbitda,
+          netInterestIncome,
+          operatingCashflow,
+          debtServicingRatio,
+        };
+        // setBasicInfo(data);
+      }
+  }, [ratio, ratioCafeF, balanceSheet, cashFlow, incomeStatement]);

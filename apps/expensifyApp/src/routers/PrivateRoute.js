@@ -15,7 +15,7 @@ export const PrivateRoute = ({
           <Component {...props} />
         </div>
       ) : (
-          <Redirect to="/expensifyApp" />
+          <Redirect to="/apps/expensifyApp" />
         )
     )} />
   );
