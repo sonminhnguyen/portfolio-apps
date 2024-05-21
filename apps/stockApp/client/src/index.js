@@ -6,16 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter basename="/apps/stockApp">
-      {/* <HashRouter basename="/" hashType="noslash"> */}
         <App />
-      {/* </HashRouter> */}
     </BrowserRouter>
-  </React.StrictMode>,
+  // </React.StrictMode>
+  ,
   document.getElementById("root")
 );
 
+// if (window.location.pathname === "/") {
+//   window.location.replace("/apps/stockApp")
+// }
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

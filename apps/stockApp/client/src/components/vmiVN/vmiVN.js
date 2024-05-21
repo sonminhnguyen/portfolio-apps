@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import vmiContext from "../../context/vmi-context";
-import Error from "../vmiUS/error";
 import SearchBar from "./searchBarVN";
 import BasicInfoVN from "./basicInfoVN";
 import TrendChartVN from "./trendChartVN";
@@ -19,6 +18,7 @@ import {
 } from "./utils/api";
 import { calculateDiscountRate } from "../vmiUS/function";
 import { growthRate5Y, growthRate10Y, average5Y } from "./utils/functionVN";
+import Error from "../Error";
 
 require("dotenv").config();
 
@@ -31,10 +31,11 @@ const VmiVN = () => {
   const [ratioCafeF, setRatioCafeF] = useState([]);
   const [profile, setProfile] = useState({});
   const [priceVN, setPriceVN] = useState({});
-  const [error, setError] = useState(false);
   const [dataBasicInfo, setDataBasicInfo] = useState({});
   const [dataStockV, setDataStockV] = useState({});
   const [dataTrendChart, setDataTrendChart] = useState({});
+  const [showError, setShowError] = useState(false);
+  const [messageError, setMessageError] = useState("");
 
   useEffect(() => {
     try {
@@ -61,6 +62,10 @@ const VmiVN = () => {
       }
     } catch (error) {
       console.log(error);
+      setShowError(true);
+      setMessageError(
+        "Unable to retrieve data from server. Please try again later!"
+      );
     }
   }, [symbol]);
   useEffect(() => {
@@ -83,31 +88,43 @@ const VmiVN = () => {
         const revenueGrowth5Y = growthRate5Y(revenue.slice().reverse());
         const netIncome = incomeStatement.find((element) => element.id === 11)
           ?.values.value;
-        const shortTermDebt = balanceSheet
-          .find((element) => element.id === 30101 || element.id === 3010101)
-          ?.values.value.slice(-1)[0]; //Vay và nợ thuê tài sản tài chính ngắn hạn
-        const longTermDebt = balanceSheet
-          .find((element) => element.id === 30201 || element.id === 3010206)
-          ?.values.value.slice(-1)[0]; // Vay và nợ thuê tài sản tài chính dài hạn
-        const operatingCashflow = cashFlow.find(
-          (element) => element.id === 107 || element.id === 104
-        )?.values.value; // id 107 for VND, VDS,... Lưu chuyển tiền thuần từ hoạt động kinh doanh
+        const shortTermDebt =
+          balanceSheet
+            .find((element) => element.id === 30101)
+            ?.values.value.slice(-1)[0] ??
+          balanceSheet
+            .find((element) => element.id === 3010101)
+            ?.values.value.slice(-1)[0]; //Vay và nợ thuê tài sản tài chính ngắn hạn
+        const longTermDebt =
+          balanceSheet
+            .find((element) => element.id === 30102)
+            ?.values.value.slice(-1)[0] ??
+          balanceSheet
+            .find((element) => element.id === 3010206)
+            ?.values.value.slice(-1)[0]; // Vay và nợ thuê tài sản tài chính dài hạn
+        const operatingCashflow =
+          cashFlow.find((element) => element.id === 107)?.values.value ??
+          cashFlow.find((element) => element.id === 104)?.values.value; // id 107 for VND, VDS,... Lưu chuyển tiền thuần từ hoạt động kinh doanh
         const capitalExpenditure = cashFlow.find(
           (element) => element.id === 201
         )?.values.value;
         const cashAndShortTermInvestments =
-          balanceSheet
-            .find(
-              (element) =>
-                element.id === 1010101 ||
-                element.id === 10101 ||
-                element.id === 101
-            )
-            ?.values.value.slice(-1)[0] +
-          balanceSheet
-            .find((element) => element.id === 1010103 || element.id === 10102)
-            ?.values.value.slice(-1)[0]; //vnd: Các  khoản đầu tư  giữ đến ngày đáo hạn (HTM)
-
+          //Tien
+          (balanceSheet
+            .find((element) => element.id === 1010101)
+            ?.values.value.slice(-1)[0] ??
+            balanceSheet
+              .find((element) => element.id === 10101)
+              ?.values.value.slice(-1)[0] ??
+            balanceSheet
+              .find((element) => element.id === 101)
+              ?.values.value.slice(-1)[0]) +
+          (balanceSheet
+            .find((element) => element.id === 1010203)
+            ?.values.value.slice(-1)[0] ??
+            balanceSheet
+              .find((element) => element.id === 10102)
+              ?.values.value.slice(-1)[0]); //vnd: Các  khoản đầu tư  giữ đến ngày đáo hạn (HTM)
         const peg =
           ratio.find((element) => element.symbol === "P/E")?.value /
           epsGrowth5Y;
@@ -152,12 +169,20 @@ const VmiVN = () => {
         const amortization = cashFlow
           .find((element) => element.id === 10201)
           ?.values.value.slice(-1)[0]; // Khấu hao TSCĐ
-        const interestOnDeposits = cashFlow
-          .find((element) => element.if === 302 || element.id === 10208)
-          ?.values.value.slice(-1)[0];
-        const interestIncome = cashFlow
-          .find((element) => element.id === 205 || element.id === 10209)
-          ?.values.value.slice(-1)[0]; //VND: Tiền thu về cổ tức và lợi nhuận được chia
+        const interestOnDeposits =
+          cashFlow
+            .find((element) => element.if === 302)
+            ?.values.value.slice(-1)[0] ??
+          cashFlow
+            .find((element) => element.id === 10208)
+            ?.values.value.slice(-1)[0];
+        const interestIncome =
+          cashFlow
+            .find((element) => element.id === 205)
+            ?.values.value.slice(-1)[0] ??
+          cashFlow
+            .find((element) => element.id === 10209)
+            ?.values.value.slice(-1)[0]; //VND: Tiền thu về cổ tức và lợi nhuận được chia
         const interestExpense = cashFlow
           .find((element) => element.id === 10210)
           ?.values.value.slice(-1)[0]; //VnD: ko co
@@ -206,22 +231,22 @@ const VmiVN = () => {
           roeIndustry,
           currentRatioAnnual,
           currentRatioAnnualIndustry,
-          totalDebt,
-          ebitda,
+          totalDebt: totalDebt / 1000,
+          ebitda: ebitda / 1000,
           debtEbitda,
-          netInterestIncome,
-          operatingCashflow: operatingCashflow.slice(-1)[0],
+          netInterestIncome: netInterestIncome / 1000,
+          operatingCashflow: operatingCashflow.slice(-1)[0] / 1000,
           debtServicingRatio,
           netIncome,
           dividend,
           dividendYield,
         });
         setDataStockV({
-          netIncome: netIncome_TTM / 1000000,
-          operatingCashflow,
-          freeCashflow: freeCashflow_TTM,
-          totalDebt,
-          cashAndShortTermInvestments,
+          netIncome: netIncome_TTM / 1000000000,
+          operatingCashflow: operatingCashflow.slice(-1)[0] / 1000,
+          freeCashflow: freeCashflow_TTM / 1000,
+          totalDebt: totalDebt / 1000,
+          cashAndShortTermInvestments: cashAndShortTermInvestments / 1000,
           epsGrowth5Y,
           epsGrowth10Y,
           gdpGrowthRate: 4.18,
@@ -239,14 +264,20 @@ const VmiVN = () => {
       }
     } catch (error) {
       console.log(error);
+      setShowError(true);
+      setMessageError(
+        "Unable to calculate data from server. Please try again later!"
+      );
     }
-  }, [incomeStatement, balanceSheet, cashFlow, ratio, ratioCafeF, priceVN, profile]);
-  //   console.log(incomeStatement);
-  //   console.log(balanceSheet);
-  //   console.log(cashFlow);
-  //   console.log(ratio);
-  //   console.log(profile);
-
+  }, [
+    incomeStatement,
+    balanceSheet,
+    cashFlow,
+    ratio,
+    ratioCafeF,
+    priceVN,
+    profile,
+  ]);
   return (
     <>
       <Suspense fallback={<h1>Still Loading…</h1>}>
@@ -263,7 +294,11 @@ const VmiVN = () => {
             dataTrendChart,
           }}
         >
-          <Error error={error} setError={setError} />
+          <Error
+            showError={showError}
+            setShowError={setShowError}
+            messageError={messageError}
+          />
           <Container fluid className="mt-3">
             <Row>
               <Col
@@ -275,7 +310,7 @@ const VmiVN = () => {
               <Col xs={2} md={4}>
                 <SearchBar setSymbol={setSymbol} />
               </Col>
-              <div className="text-muted">All number is in millions</div>
+              <div className="text-muted">All number is in billions</div>
             </Row>
             <Row>
               <Col xs lg="5">

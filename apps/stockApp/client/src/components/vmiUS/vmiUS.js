@@ -5,41 +5,42 @@ import Row from 'react-bootstrap/Row'
 import vmiContext from '../../context/vmi-context'
 import SearchBar from './searchBarUS'
 import TrendChart from './trendChartUS'
-import Error from './error'
+import Error from '../Error'
 import { getIncomeStatement, getBalanceSheet, getCashFlow, getRatio } from './dataUS'
 import BasicInfo from './basicInfoUS'
 import StockValuation from './stockValuationUS'
 require('dotenv').config()
 
 const VmiUS = () => {
-    const [symbol, setSymbol] = useState("")
-    const [incomeStatement, setIncomeStatement] = useState({})
-    const [balanceSheet, setBalanceSheet] = useState({})
-    const [cashFlow, setCashFlow] = useState({})
-    const [ratio, setRatio] = useState({})
-    const [error, setError] = useState(false)
+
+    const [showError, setShowError] = useState(false);
+    const [messageError, setMessageError] = useState("")
+    const [symbol, setSymbol] = useState("");
+    const [incomeStatement, setIncomeStatement] = useState({});
+    const [balanceSheet, setBalanceSheet] = useState({});
+    const [cashFlow, setCashFlow] = useState({});
+    const [ratio, setRatio] = useState({});
 
     useEffect(() => {
-        if (symbol.length !== 0) {
+        if (!!symbol) {
             try {
                 getIncomeStatement(symbol).then(incomeStatement => setIncomeStatement(incomeStatement))
                 getBalanceSheet(symbol).then(balanceSheet => setBalanceSheet(balanceSheet))
                 getCashFlow(symbol).then(cashFlow => setCashFlow(cashFlow))
                 getRatio(symbol, process.env.REACT_APP_FINNHUB_KEY).then(ratio => setRatio(ratio))
-            } catch (e) {
-                setError(true)
+            } catch (error) {
+                console.log(error);
+                setShowError(true);
+                setMessageError("Can not retrieve fundamental data from server. Please try again later!")
             }
         }
     }, [symbol])
-    console.log(incomeStatement)
-    console.log(balanceSheet)
-    console.log(cashFlow)
     return (
         <>
             <Suspense fallback={<h1>Still Loading…</h1>}>
-                <vmiContext.Provider value={{ incomeStatement, balanceSheet, cashFlow, ratio }}>
+                <vmiContext.Provider value={{ incomeStatement, balanceSheet, cashFlow, ratio, setShowError, setMessageError}}>
+                <Error showError={showError} setShowError={setShowError} messageError={messageError} />
                     <Container fluid className="mt-3">
-                        <Error error={error} setError={setError} />
                         <Row>
                             <Col xs={1} className='d-flex align-items-center justify-content-center' >
                                 <div >Symbol</div>

@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const autoUpdateData = require('./src/schwab/autoUpdateData.js')
+var cors = require("cors");
+
 autoUpdateData();
 
 var apiRouter = require('./routes/api.js');
@@ -11,6 +13,8 @@ var apiRouter = require('./routes/api.js');
 var app = express();
 
 const publicPath = path.join(__dirname, './public')
+app.use(cors({origin: '*'}));
+
 
 app.use(logger('dev'));
 app.use(express.json());

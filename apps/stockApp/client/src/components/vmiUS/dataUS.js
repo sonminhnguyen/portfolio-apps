@@ -1,5 +1,5 @@
-const fetch = require('node-fetch')
-require('dotenv').config()
+const fetch = require("node-fetch");
+require("dotenv").config();
 
 //use for US stock
 const getSymbolList = async (symbol) => {
@@ -7,11 +7,10 @@ const getSymbolList = async (symbol) => {
         const res = await fetch(`api/vmiUS/getSymbolList/${symbol}`)
         const reports = await res.json();
         const SYMBOL_LIST = reports.map(report => ({
-            symbol: report.symbol,
-            name: report.shortname,
-            exchangeShortName: report.exchDisp
+            symbol: report?.symbol,
+            name: report?.shortname,
+            exchangeShortName: report?.exchDisp
         }))
-
         return SYMBOL_LIST;
     } catch (error) {
         console.log(error);
@@ -25,6 +24,7 @@ const getIncomeStatement = async (symbol) => {
         const json = await res.json();
         return json;
     } catch (error) {
+        console.log(error);
         return new Error({ error });
     }
 }
@@ -35,6 +35,7 @@ const getBalanceSheet = async (symbol) => {
         const json = await res.json();
         return json;
     } catch (error) {
+        console.log(error);
         return new Error({ error });
     }
 }
@@ -45,6 +46,7 @@ const getCashFlow = async (symbol) => {
         const json = await res.json();
         return json;
     } catch (error) {
+        console.log(error);
         return new Error({ error });
     }
 }
@@ -55,17 +57,20 @@ const getRatio = async (symbol, key) => {
         const json = await res.json();
         return json;
     } catch (error) {
+        console.log(error);
         return new Error({ error });
     }
 }
 
 export {
-    getSymbolList,
-    getIncomeStatement,
-    getBalanceSheet,
-    getCashFlow,
-    getRatio
-}
+  getSymbolList,
+  getIncomeStatement,
+  getBalanceSheet,
+  getCashFlow,
+  getRatio,
+};
+
+
 
 // const getSymbolList = async (symbol, key) => {
 //     try {

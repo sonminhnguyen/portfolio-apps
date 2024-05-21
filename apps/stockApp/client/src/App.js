@@ -17,7 +17,7 @@ const App = () => {
     <>
       <Navbar expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/vmiUS">
+          <Navbar.Brand>
             <Nav.Link as={Link} to="/vmiUS">
               idrsch-Vmi
             </Nav.Link>

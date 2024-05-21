@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { getSymbolList } from "./dataUS";
+import vmiContext from "../../context/vmi-context";
 
 const SearchBar = ({ setSymbol }) => {
+  const { setShowError, setMessageError } = useContext(vmiContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState([]);
-  const [render, setRender] = useState([]);
+  const [quotes, setQuotes] = useState([]);
 
   const handleSearch = async (searchTerm) => {
     setIsLoading(true);
-    try {
-      getSymbolList(searchTerm.toUpperCase()).then((data) => {
-        setOptions(data)
-        setIsLoading(false);
+    getSymbolList(searchTerm.toUpperCase())
+      .then((data) => {
+        if (data) {
+          setQuotes(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowError(true);
+        setMessageError("Server not respond for searching. Please try again later!")
       });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
-  const handleSelect = (e) => options.length !== 0 && setSymbol(e[0]?.symbol);
+  const handleSelect = (e) => quotes.length !== 0 && setSymbol(e[0]?.symbol);
 
-  // Bypass client-side filtering by returning `true`. Results are already
-  // filtered by the search endpoint, so no need to do it again.
-  const filterBy = () => true;
-  useEffect(() => {
-    setRender(options);
-  }, [options]);
   return (
-    <AsyncTypeahead
-      delay={1000}
-      filterBy={filterBy}
-      id="search-symbol-US"
-      isLoading={isLoading}
-      onChange={handleSelect}
-      labelKey="symbol"
-      minLength={1}
-      onSearch={(searchTerm) => handleSearch(searchTerm)}
-      options={render}
-      placeholder="Enter a symbol"
-      renderMenuItemChildren={(option, props) => (
-        <ListGroup horizontal="sm">
-          <ListGroup.Item>{option.symbol}</ListGroup.Item>
-          <ListGroup.Item>{option.name}</ListGroup.Item>
-          <ListGroup.Item className="ml-auto">
-            {option.exchangeShortName}
-          </ListGroup.Item>
-        </ListGroup>
-      )}
-    />
+    <>
+      <AsyncTypeahead
+        delay={1000}
+        id="search-symbol-US"
+        labelKey="symbol"
+        isLoading={isLoading}
+        minLength={0}
+        onSearch={(searchTerm) => handleSearch(searchTerm)}
+        onChange={handleSelect}
+        options={quotes}
+        placeholder="Enter a symbol"
+        renderMenuItemChildren={(option, props) => (
+          <ListGroup horizontal="sm">
+            <ListGroup.Item>{option?.symbol}</ListGroup.Item>
+            <ListGroup.Item>{option?.name}</ListGroup.Item>
+            <ListGroup.Item className="ml-auto">
+              {option?.exchangeShortName}
+            </ListGroup.Item>
+          </ListGroup>
+        )}
+      />
+    </>
   );
 };
 

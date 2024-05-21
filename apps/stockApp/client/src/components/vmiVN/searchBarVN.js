@@ -34,7 +34,7 @@ const SearchBar = ({ setSymbol }) => {
       isLoading={isLoading}
       onChange={handleSelect}
       labelKey="key"
-      minLength={1}
+      minLength={0}
       onSearch={(searchTerm) => handleSearch(searchTerm)}
       options={options}
       placeholder="Enter a symbol"
